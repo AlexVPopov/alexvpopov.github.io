@@ -8,6 +8,8 @@ categories: [General]
 
 ## A post to get my blog going
 
+{% img left /images/Dolphin-Jump-Sunrise.jpg "Dolphin jumping and sunrise" "Dolphin jumping and sunrise" %}
+
 This is it. I made it. I installed [Octopress](http://octopress.org/), deployed my blog on [GitHub Pages](http://pages.github.com/) and am writing my first blog post. I decided to create this blog for two reasons:
 
 1. I spend a lot of time solving problems in the course of my learning, in the course of my work, in the course of my life in general. This costs time. I want to share my knowledge and spare the time of other people. Octopress happens to be a beautiful and very flexible way to do this.
