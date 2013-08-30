@@ -4,10 +4,10 @@
 
 url: http://AlexVPopov.github.io
 title: Alex Popov
-subtitle: My personal blog about my experience with Ruby, Rails and many other things
-author: Your Name
+subtitle: My personal blog about my experience with Ruby and Rails and many other things
+author: Alex Popov
 simple_search: http://google.com/search
-description:
+description: Yet another Octopress blog
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
