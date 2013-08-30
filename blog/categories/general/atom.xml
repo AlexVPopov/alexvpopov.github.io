@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Alex Popov]]></title>
-  <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: General | Alex Popov]]></title>
+  <link href="http://AlexVPopov.github.io/blog/categories/general/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
   <updated>2013-08-31T00:38:24+03:00</updated>
   <id>http://AlexVPopov.github.io/</id>
