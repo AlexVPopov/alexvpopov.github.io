@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://AlexVPopov.github.io/sitemap.xml 
