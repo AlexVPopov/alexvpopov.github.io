@@ -4,7 +4,7 @@
   <title><![CDATA[Category: General | Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/blog/categories/general/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-08-31T00:42:14+03:00</updated>
+  <updated>2013-08-31T01:32:52+03:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -19,6 +19,8 @@
     <updated>2013-08-31T00:01:00+03:00</updated>
     <id>http://AlexVPopov.github.io/blog/2013/08/31/hello-world</id>
     <content type="html"><![CDATA[<h2>A post to get my blog going</h2>
+
+<p><img class="left" src="/images/Dolphin-Jump-Sunrise.jpg" title="&ldquo;Dolphin jumping and sunrise&rdquo; &ldquo;Dolphin jumping and sunrise&rdquo;" ></p>
 
 <p>This is it. I made it. I installed <a href="http://octopress.org/">Octopress</a>, deployed my blog on <a href="http://pages.github.com/">GitHub Pages</a> and am writing my first blog post. I decided to create this blog for two reasons:</p>
 
