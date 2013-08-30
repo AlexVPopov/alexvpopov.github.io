@@ -4,7 +4,7 @@
   <title><![CDATA[Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-08-31T02:02:59+03:00</updated>
+  <updated>2013-08-31T02:40:28+03:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -20,17 +20,17 @@
     <id>http://AlexVPopov.github.io/blog/2013/08/31/hello-world</id>
     <content type="html"><![CDATA[<h2>A post to get my blog going</h2>
 
-<p><img class="left" src="http://AlexVPopov.github.io/images/Dolphin-Jump-Sunrise.jpg" width="500" title="Dolphin jumping and sunrise" alt="Dolphin jumping and sunrise"></p>
+<p><img class="center" src="http://AlexVPopov.github.io/images/github_page_and_octopress.png" width="600" title="Octocat and Octopress" alt="Octocat and Octopress"></p>
 
 <p>This is it. I made it. I installed <a href="http://octopress.org/">Octopress</a>, deployed my blog on <a href="http://pages.github.com/">GitHub Pages</a> and am writing my first blog post. I decided to create this blog for two reasons:</p>
 
 <ol>
-<li>I spend a lot of time solving problems in the course of my learning, in the course of my work, in the course of my life in general. This costs time. I want to share my knowledge and spare the time of other people. Octopress happens to be a beautiful and very flexible way to do this.</li>
-<li>Blogging on Octopress involves many technologies, such as <a href="https://www.ruby-lang.org/en/">Ruby</a>, <a href="http://jekyllrb.com/">Jakyll</a>, <a href="http://octopress.org/">Octopress</a> (obviously), <a href="http://daringfireball.net/projects/markdown/">Markdown</a> and many more. I like using inovative and beautiful technologies and I like learning.</li>
+<li>I spend a lot of time solving problems in the course of my learning, my work, my life in general. This costs me time. I want to share my knowledge and save other people&rsquo;s time. Octopress happens to be a beautiful and very flexible way to do this.</li>
+<li>Blogging on Octopress involves many technologies, such as <a href="https://www.ruby-lang.org/en/">Ruby</a>, <a href="http://jekyllrb.com/">Jakyll</a>, <a href="http://octopress.org/">Octopress</a> (obviously), <a href="http://daringfireball.net/projects/markdown/">Markdown</a> and many more. I like using beautiful, simple and yet powerfull technologies and I like learning.</li>
 </ol>
 
 
-<p>So there you have it. I promise to try and blog at least once a week and hope my posts will help you doing the things you like to do faster and easier.</p>
+<p>So there you have it. I promise to try and blog at least once a week and hope my posts will help you do the things you like faster and easier.</p>
 
 <p>P.S. Although this blog will be primarily tech-oriented, I might also write about other interesting stuff from all corners of life.</p>
 ]]></content>
