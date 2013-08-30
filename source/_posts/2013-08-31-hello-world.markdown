@@ -8,7 +8,7 @@ categories: [General]
 
 ## A post to get my blog going
 
-{% img left /images/Dolphin-Jump-Sunrise.jpg "Dolphin jumping and sunrise" "Dolphin jumping and sunrise" %}
+{% img left /images/Dolphin-Jump-Sunrise.jpg 500 "Dolphin jumping and sunrise" "Dolphin jumping and sunrise" %}
 
 This is it. I made it. I installed [Octopress](http://octopress.org/), deployed my blog on [GitHub Pages](http://pages.github.com/) and am writing my first blog post. I decided to create this blog for two reasons:
 
