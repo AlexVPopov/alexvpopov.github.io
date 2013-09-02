@@ -7,7 +7,7 @@ categories: Rails, PSQL
 ---
 # A quick way to get Postgres to work with your existing Rails app
 
-There are plenty of instructions for installing PSQL on OS X Mountain Lion such as [this](https://coderwall.com/p/1mni7w) or [this](http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion). The problem here is that as of Mountain Lion Postgres opens a socket in `/var/pgsql_socket`, which is different from previous versions. As a result, when you try to start Postgres with `psql` in the shell, you'll get an error message, similar to:
+There are plenty of instructions for installing PSQL on OS X Mountain Lion such as [this](https://coderwall.com/p/1mni7w) or [this](http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion). The problem here is that as of Mountain Lion Postgres opens a socket in `/var/pgsql_socket`, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with `psql` in the shell, you'll get an error message, similar to:
 
 {% codeblock [PSQL starting error] %}
 psql: could not connect to server: Permission denied
