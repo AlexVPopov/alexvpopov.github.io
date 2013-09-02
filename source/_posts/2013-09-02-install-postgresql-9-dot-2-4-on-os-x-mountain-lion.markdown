@@ -38,6 +38,6 @@ The links I mentioned above provide a possible solution to this problem. You cou
 
 You should be good to go.
 
-P.S. Also check out this [#342 Migrating to PostgreSQL](http://railscasts.com/episodes/342-migrating-to-postgresql?view=asciicast) Railscast for a full guide on migrating from SQLite to Postgres.
+P.S. Also check out this [#342 Migrating to PostgreSQL](http://railscasts.com/episodes/342-migrating-to-postgresql?view=asciicast) Railscast for a full guide on migrating from SQLite to Postgres and this [Stackoverflow question](http://stackoverflow.com/questions/11092807/installing-postgresql-on-ubuntu-for-ruby-on-rails) for similar instructions for Ubuntu.
 
 
