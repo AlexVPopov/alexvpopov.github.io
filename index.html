@@ -114,56 +114,12 @@
 
   <div class="entry-content"><h1>A quick way to get Postgres to work with your existing Rails app</h1>
 
-<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions. As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
-
-<figure class='code'><figcaption><span>[PSQL starting error] </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>psql: could not connect to server: Permission denied
-</span><span class='line'>    Is the server running locally and accepting
-</span><span class='line'>    connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The links I mentioned above provide a possible solution to this problem. You could also try the varios suggestions in <a href="http://stackoverflow.com/search?q=.s.PGSQL.5432">Stackoverflow</a>. Alas, I had no luck with any of them, but this is what saved my day:</p>
-
-<ol>
-<li>Install the <a href="http://postgresapp.com/">Postgress App</a>:
-
-<ul>
-<li><a href="http://postgresapp.com/download">Download the latest version</a>.</li>
-<li>Unarchive it.</li>
-<li>Drag-and-drop Postgres.app to your Applications folder</li>
-</ul>
-</li>
-<li><p>Amend your PATH by running this in the shell:</p>
-
-<p> <code>export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"</code></p></li>
-<li><p>Start the Postgres.app from your Applications folder. You should be seeing a black elephant in the menu bar.</p></li>
-<li><p>Create a role with the same name as the one you have specified in your <code>database.yml</code> file with these commands</p>
-
-<ul>
-<li><code>psql</code> to startthe psql.</li>
-<li>Create the role with <code>CREATE ROLE &lt;username&gt; SUPERUSER LOGIN;</code>.</li>
-<li><code>\q</code> to quit the psql shell.</li>
-</ul>
-</li>
-<li><p>After that run these commands to recreate the development and environment databases of your app:</p>
-
-<ul>
-<li><code>rake:db:create:all</code></li>
-<li><code>rake:db:migrate</code></li>
-<li><code>rake:db:migrate RAILS_ENV=test</code></li>
-</ul>
-</li>
-</ol>
-
-
-<p>You should be good to go.</p>
-
-<p>P.S. Also check out this <a href="http://railscasts.com/episodes/342-migrating-to-postgresql?view=asciicast">#342 Migrating to PostgreSQL</a> Railscast for a full guide on migrating from SQLite to Postgres.</p>
-</div>
+<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.</div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/">Read on &rarr;</a>
+    </footer>
   
 
 
