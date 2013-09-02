@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Alex Popov]]></title>
-  <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Rails, | Alex Popov]]></title>
+  <link href="http://AlexVPopov.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
   <updated>2013-09-02T14:38:19+03:00</updated>
   <id>http://AlexVPopov.github.io/</id>
@@ -22,14 +22,21 @@
 
 <p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions. As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
 
-<figure class='code'><figcaption><span>[PSQL starting error] </span></figcaption>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>[PSQL starting error] </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>psql: could not connect to server: Permission denied
-</span><span class='line'>    Is the server running locally and accepting
-</span><span class='line'>    connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?</span></code></pre></td></tr></table></div></figure>
-
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql: could not connect to server: Permission denied&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code>Is the server running locally and accepting
+</span><span class='line'>connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The links I mentioned above provide a possible solution to this problem. You could also try the varios suggestions in <a href="http://stackoverflow.com/search?q=.s.PGSQL.5432">Stackoverflow</a>. Alas, I had no luck with any of them, but this is what saved my day:</p>
 
@@ -68,29 +75,6 @@
 <p>You should be good to go.</p>
 
 <p>P.S. Also check out this <a href="http://railscasts.com/episodes/342-migrating-to-postgresql?view=asciicast">#342 Migrating to PostgreSQL</a> Railscast for a full guide on migrating from SQLite to Postgres.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://AlexVPopov.github.io/blog/2013/08/31/hello-world/"/>
-    <updated>2013-08-31T00:01:00+03:00</updated>
-    <id>http://AlexVPopov.github.io/blog/2013/08/31/hello-world</id>
-    <content type="html"><![CDATA[<h2>A post to get my blog going</h2>
-
-<p><img class="center" src="http://AlexVPopov.github.io/images/github_page_and_octopress.png" width="600" title="Octocat and Octopress" alt="Octocat and Octopress"></p>
-
-<p>This is it. I made it. I installed <a href="http://octopress.org/">Octopress</a>, deployed my blog on <a href="http://pages.github.com/">GitHub Pages</a> and am writing my first blog post. I decided to create this blog for two reasons: <!-- more --></p>
-
-<ol>
-<li>I spend a lot of time solving problems in the course of my learning, my work, my life in general. This costs me time. I want to share my knowledge and save other people&rsquo;s time. Octopress happens to be a beautiful and very flexible way to do this.</li>
-<li>Blogging on Octopress involves many technologies, such as <a href="https://www.ruby-lang.org/en/">Ruby</a>, <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://octopress.org/">Octopress</a> (obviously), <a href="http://daringfireball.net/projects/markdown/">Markdown</a> and many more. I like using beautiful, simple and yet powerfull technologies and I like learning.</li>
-</ol>
-
-
-<p>So there you have it. I promise to try and blog at least once a week and hope my posts will help you do the things you like faster and easier.</p>
-
-<p>P.S. Although this blog will be primarily tech-oriented, I might also write about other interesting stuff from all corners of life.</p>
 ]]></content>
   </entry>
   

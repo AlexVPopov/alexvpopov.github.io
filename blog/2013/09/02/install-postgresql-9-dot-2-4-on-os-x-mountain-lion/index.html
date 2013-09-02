@@ -5,13 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - Alex Popov</title>
+  <title>Install Postgresql 9.2.4 on OS X Mountain Lion - Alex Popov</title>
   <meta name="author" content="Alex Popov">
 
   
-  <meta name="description" content="Blog Archive 2013 Install Postgresql 9.2.4 on OS X Mountain Lion
-Sep 02 2013 posted in PSQL, Rails, Hello World
-Aug 31 2013 posted in General Recent &hellip;">
+  <meta name="description" content="A quick way to get Postgres to work with your existing Rails app There are plenty of instructions for installing PSQL on OS X Mountain Lion such as &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +18,7 @@ Aug 31 2013 posted in General Recent &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://AlexVPopov.github.io/blog/archives/">
+  <link rel="canonical" href="http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -82,50 +80,146 @@ Aug 31 2013 posted in General Recent &hellip;">
     <div id="main">
       <div id="content">
         <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Install Postgresql 9.2.4 on OS X Mountain Lion</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-02T13:54:00+03:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><h1>A quick way to get Postgres to work with your existing Rails app</h1>
 
-  
-  <h2>2013</h2>
+<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions. As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
 
-<article>
-  
-<h1><a href="/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/">Install Postgresql 9.2.4 on OS X Mountain Lion</a></h1>
-<time datetime="2013-09-02T13:54:00+03:00" pubdate><span class='month'>Sep</span> <span class='day'>02</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/psql/'>PSQL</a>, <a class='category' href='/blog/categories/rails/'>Rails,</a></span>
-</footer>
-
-
-</article>
+<figure class='code'><figcaption><span>[PSQL starting error] </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql: could not connect to server: Permission denied
+</span><span class='line'>    Is the server running locally and accepting
+</span><span class='line'>    connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?</span></code></pre></td></tr></table></div></figure>
 
 
+<p>The links I mentioned above provide a possible solution to this problem. You could also try the varios suggestions in <a href="http://stackoverflow.com/search?q=.s.PGSQL.5432">Stackoverflow</a>. Alas, I had no luck with any of them, but this is what saved my day:</p>
 
-<article>
-  
-<h1><a href="/blog/2013/08/31/hello-world/">Hello World</a></h1>
-<time datetime="2013-08-31T00:01:00+03:00" pubdate><span class='month'>Aug</span> <span class='day'>31</span> <span class='year'>2013</span></time>
+<ol>
+<li>Install the <a href="http://postgresapp.com/">Postgress App</a>:
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/general/'>General</a></span>
-</footer>
+<ul>
+<li><a href="http://postgresapp.com/download">Download the latest version</a>.</li>
+<li>Unarchive it.</li>
+<li>Drag-and-drop Postgres.app to your Applications folder</li>
+</ul>
+</li>
+<li><p>Amend your PATH by running this in the shell:</p>
+
+<p> <code>export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"</code></p></li>
+<li><p>Start the Postgres.app from your Applications folder. You should be seeing a black elephant in the menu bar.</p></li>
+<li><p>Create a role with the same name as the one you have specified in your <code>database.yml</code> file with these commands</p>
+
+<ul>
+<li><code>psql</code> to startthe psql.</li>
+<li>Create the role with <code>CREATE ROLE &lt;username&gt; SUPERUSER LOGIN;</code>.</li>
+<li><code>\q</code> to quit the psql shell.</li>
+</ul>
+</li>
+<li><p>After that run these commands to recreate the development and environment databases of your app:</p>
+
+<ul>
+<li><code>rake:db:create:all</code></li>
+<li><code>rake:db:migrate</code></li>
+<li><code>rake:db:migrate RAILS_ENV=test</code></li>
+</ul>
+</li>
+</ol>
 
 
-</article>
+<p>You should be good to go.</p>
 
+<p>P.S. Also check out this <a href="http://railscasts.com/episodes/342-migrating-to-postgresql?view=asciicast">#342 Migrating to PostgreSQL</a> Railscast for a full guide on migrating from SQLite to Postgres.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Alex Popov</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-02T13:54:00+03:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/psql/'>PSQL</a>, <a class='category' href='/blog/categories/rails/'>Rails,</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/" data-via="sashopopov" data-counturl="http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/31/hello-world/" title="Previous Post: Hello World">&laquo; Hello World</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -197,7 +291,10 @@ Aug 31 2013 posted in General Recent &hellip;">
       var disqus_shortname = 'alexoctopress';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/';
+        var disqus_url = 'http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
