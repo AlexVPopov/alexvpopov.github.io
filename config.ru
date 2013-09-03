@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'sinatra/base'
+require 'newrelic_rpm'
 
 #############
 # add caching from http://status200.me/blog/2013/05/04/free-and-fast-blogging-with-octopress/
