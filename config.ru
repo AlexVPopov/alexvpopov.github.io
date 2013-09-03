@@ -1,6 +1,28 @@
 require 'bundler/setup'
 require 'sinatra/base'
 
+#############
+# add caching from http://status200.me/blog/2013/05/04/free-and-fast-blogging-with-octopress/
+#############
+
+require 'dalli'
+require 'rack-cache'
+require 'memcachier'
+
+use Rack::Cache,
+  verbose: true,
+  metastore:   Dalli::Client.new,
+  entitystore: "file:tmp/cache/rack/body"
+
+use Rack::Static,
+  :urls => ["/assets", "/images", "/javascripts", "/stylesheets", "/media" ],
+  :root => 'public',
+  :cache_control => 'public, max-age=2592000'
+
+#############
+# add caching
+#############
+
 # The project root directory
 $root = ::File.dirname(__FILE__)
 
