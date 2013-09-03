@@ -15,11 +15,14 @@ group :development do
   gem 'stringex', '~> 1.4.0'
   gem 'liquid', '~> 2.3.0'
   gem 'directory_watcher', '1.4.1'
-
-  #add chaching feature from http://status200.me/blog/2013/05/04/free-and-fast-blogging-with-octopress/
-  gem 'dalli'
-  gem 'rack-cache'
-  gem 'memcachier'
 end
 
 gem 'sinatra', '~> 1.4.2'
+
+#add chaching feature from http://status200.me/blog/2013/05/04/free-and-fast-blogging-with-octopress/
+gem 'dalli'
+gem 'rack-cache'
+gem 'memcachier'
+
+# New Relic monitoring
+gem 'newrelic_rpm'
