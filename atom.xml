@@ -4,7 +4,7 @@
   <title><![CDATA[Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-09-05T00:51:25+03:00</updated>
+  <updated>2013-09-05T00:59:43+03:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -14,11 +14,21 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Install Postgresql 9.2.4 on OS X Mountain Lion]]></title>
+    <title type="html"><![CDATA[Install Postgresql 9 Dot 2 4 On Os X Mountain Lion]]></title>
     <link href="http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/"/>
-    <updated>2013-09-02T13:54:00+03:00</updated>
+    <updated>2013-09-02T00:00:00+03:00</updated>
     <id>http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion</id>
-    <content type="html"><![CDATA[<h1>A quick way to get Postgres to work with your existing Rails app</h1>
+    <content type="html"><![CDATA[<p>r&mdash;&ndash;
+layout: post
+title: &ldquo;Install Postgresql 9.2.4 on OS X Mountain Lion&rdquo;
+date: 2013-09-02 13:54
+comments: true</p>
+
+<h2>categories: Rails, PSQL</h2>
+
+<h1>A quick way to get Postgres to work with your existing Rails app</h1>
+
+<p><img class="left" src="http://AlexVPopov.github.io/images/postgres-app.png" width="300" title="&#34;Postgress.app&#34;" alt="&#34;Postgress.app&#34;"></p>
 
 <p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
 
