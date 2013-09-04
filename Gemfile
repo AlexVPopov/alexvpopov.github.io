@@ -23,6 +23,3 @@ gem 'sinatra', '~> 1.4.2'
 gem 'dalli'
 gem 'rack-cache'
 gem 'memcachier'
-
-# New Relic monitoring
-gem 'newrelic_rpm'
