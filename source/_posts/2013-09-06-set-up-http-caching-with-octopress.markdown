@@ -11,6 +11,7 @@ published: false
 ## Speed up your Octopress blog by using memcached and Rake::Cache
 
 Things to mention:
+
 * http://redbot.org/? - RedBot for checking the cache settings on your site.
 * [Caching Tutorial](http://www.mnot.net/cache_docs/) - caching tutorial for more info on how caching works
 * [Things Caches Do](http://tomayko.com/writings/things-caches-do) - a caching tutorial by Ryan Tomayko, author of [Rake::Cache](http://rtomayko.github.io/rack-cache/ ) and co-founder of GitHub
