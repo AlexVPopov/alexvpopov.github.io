@@ -10,6 +10,9 @@
 
   
   <meta name="description" content="A quick way to get Postgres to work with your existing Rails app There are plenty of instructions for installing PSQL on OS X Mountain Lion such as &hellip;">
+
+  
+  <meta name="keywords" content="Alex, Popov, personal, blog, Ruby, Rails, Octopress" />
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -47,8 +50,14 @@
 </head>
 
 <body>
-  <header role="banner"><hgroup>
-  <h1><a href="/">Alex Popov</a></h1>
+  <header role="banner"><hgroup hgroup itemscope itemtype="http://schema.org/Person">
+  <h1>
+  	<a href="/">
+  		<span itemprop="name">
+  			Alex Popov
+  		</span>
+  	</a>
+  </h1>
   
     <h2>My personal blog about my experience with Ruby, Rails and many other things</h2>
   
@@ -110,6 +119,11 @@
 
 
 <div class="entry-content"><h1>A quick way to get Postgres to work with your existing Rails app</h1>
+
+<p><img class="left" src="/images/postgres_app.png" width="300" title="Postgress.app" ></p>
+
+<div style="clear:both;"></div>
+
 
 <p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
 
@@ -272,7 +286,7 @@
 
 
 
-
+<a href="http://internetdefenseleague.org"><img src="http://internetdefenseleague.org/images/badges/final/shield_badge.png" alt="Member of The Internet Defense League" /></a>
   
 </aside>
 
