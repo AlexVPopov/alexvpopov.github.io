@@ -18,6 +18,7 @@ group :development do
 end
 
 gem 'sinatra', '~> 1.4.2'
+gem 'redcarpet'
 
 #add chaching feature from http://status200.me/blog/2013/05/04/free-and-fast-blogging-with-octopress/
 gem 'dalli'
