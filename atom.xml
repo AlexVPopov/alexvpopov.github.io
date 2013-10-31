@@ -4,7 +4,7 @@
   <title><![CDATA[Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-09-12T18:23:41+03:00</updated>
+  <updated>2013-10-31T17:25:54+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -12,6 +12,288 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Allow users to authenticate with username only using Devise, ActiveAdmin, Rails 4 and Ruby 2]]></title>
+    <link href="http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/"/>
+    <updated>2013-10-31T16:10:00+02:00</updated>
+    <id>http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2</id>
+    <content type="html"><![CDATA[<p><em>This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.</em></p>
+
+<h2>Allow normal users to authenticate with username only, while keeping email authentication for admins in ActiveAdmin</h2>
+
+<h3>Scenario</h3>
+
+<p>You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all.</p>
+
+<h3>Conventions</h3>
+
+<p>I refer to the files unser <code>app/models/</code> as <em>models</em> and the files under <code>app/admin/</code> as <em>resources</em>.</p>
+
+<h3>Prerequisits:</h3>
+
+<ul>
+<li>Generate a new Rails application:</li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rails new devise_username_only
+</span></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>Add to Gemfile</li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;activeadmin&#39;</span><span class="p">,</span> <span class="ss">github</span><span class="p">:</span> <span class="s1">&#39;gregbell/active_admin&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>Install gems:</li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle install
+</span></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>Install ActiveAdmin:</li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rails g active_admin:install
+</span></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>Migrate the database:</li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake db:migrate
+</span></code></pre></td></tr></table></div></figure>
+
+<p>So far you should have a working app with an admin backend, containing an AdminUsers resource. Test it by starting the server with <code>rails s</code>, going to <a href="http://localhost:3000/admin"><code>http://localhost:3000/admin</code></a> and logging in with credentials <code>admin@example.com</code> and <code>password</code>.</p>
+
+<h3>Actual work</h3>
+
+<p>Now comes the real work of generating your user model and doing a few tweaks.</p>
+
+<h4>Devise inilizier</h4>
+
+<p>Modify the Devise initializer under <code>config/initalizers/devire.rb</code>. In particular change the following lines to look like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">case_insensitive_keys</span> <span class="o">=</span> <span class="o">[</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:username</span> <span class="o">]</span>
+</span><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">strip_whitespace_keys</span> <span class="o">=</span> <span class="o">[</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:username</span> <span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>We we will leave the line:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># config.authentication_keys = [ :email ]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>commented out, as we don&#39;t want to change the authentication keys globally. We want our admin users to still be able to log in with email. We will change the authentication keys only within the user model.</p>
+
+<p>Also, uncomment <code>config.scoped_views</code> and set it to <code>true</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">scoped_views</span> <span class="o">=</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>We need this because we have more than one Devise model (AdminUsers and Users) and we want to modify the Users views. More info <a href="https://github.com/plataformatec/devise#configuring-views">here</a>.</p>
+
+<h4>User model</h4>
+
+<p>Generate the User model:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rails g devise User
+</span></code></pre></td></tr></table></div></figure>
+
+<p>In the user migration file under <code>db/migrate/20131031100550_devise_create_admin_users.rb</code> replace <code>:email</code> with <code>:username</code> so that you have the folloing two lines in the file:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">t</span><span class="o">.</span><span class="n">string</span> <span class="ss">:username</span><span class="p">,</span> <span class="n">null</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="s2">&quot;&quot;</span>
+</span><span class='line'><span class="n">add_index</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:username</span><span class="p">,</span> <span class="ss">:unique</span> <span class="o">=&gt;</span> <span class="kp">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Tweak the User <em>model</em>:</p>
+
+<ul>
+<li>set the desired Devise modules;</li>
+<li>add the authentication keys option;</li>
+<li>overwrite <code>email_required?</code> and <code>email_changed?</code>.</li>
+</ul>
+
+<p>Your model should look something like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="c1"># Include default devise modules. Others available are:</span>
+</span><span class='line'>  <span class="c1"># :confirmable, :lockable, :timeoutable, :omniauthable,</span>
+</span><span class='line'>  <span class="c1"># :registerable, :recoverable</span>
+</span><span class='line'>  <span class="n">devise</span> <span class="ss">:database_authenticatable</span><span class="p">,</span>
+</span><span class='line'>         <span class="ss">:rememberable</span><span class="p">,</span>
+</span><span class='line'>         <span class="ss">:trackable</span><span class="p">,</span>
+</span><span class='line'>         <span class="ss">:validatable</span><span class="p">,</span>
+</span><span class='line'>         <span class="ss">:authentication_keys</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:username</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">email_required?</span>
+</span><span class='line'>    <span class="kp">false</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">email_changed?</span>
+</span><span class='line'>    <span class="kp">false</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>I have not included <code>:confirmable</code>, <code>:registerable</code>, and <code>:recoverable</code> as I want all my user management to happen on the backend through ActiveAdmin. What&#39;s more, as the User model does not have the email attribute, these modules won&#39;t work anyway.</p>
+
+<p>Finally, run the migration:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rake db:migrate
+</span></code></pre></td></tr></table></div></figure>
+
+<h4>User resource</h4>
+
+<p>Register the User model as a resource in ActiveAdmin:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rails g active_admin:resource User
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Modify the User <em>resource</em> to look like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">ActiveAdmin</span><span class="o">.</span><span class="n">register</span> <span class="no">User</span> <span class="k">do</span>
+</span><span class='line'>  <span class="c1"># This determines which attributes of the User model will be</span>
+</span><span class='line'>  <span class="c1"># displayed in the index page. I have left only username, but</span>
+</span><span class='line'>  <span class="c1"># feel free to uncomment the rest of the fields or add any</span>
+</span><span class='line'>  <span class="c1"># other of the User attributes.</span>
+</span><span class='line'>  <span class="n">index</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">column</span> <span class="ss">:username</span>
+</span><span class='line'>    <span class="c1"># column :current_sign_in_at</span>
+</span><span class='line'>    <span class="c1"># column :last_sign_in_at</span>
+</span><span class='line'>    <span class="c1"># column :sign_in_count</span>
+</span><span class='line'>    <span class="n">default_actions</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Default is :email, but we need to replace this with :username</span>
+</span><span class='line'>  <span class="n">filter</span> <span class="ss">:username</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># This is the form for creating a new user using the Admin</span>
+</span><span class='line'>  <span class="c1"># backend. If you have added additional attributes to the</span>
+</span><span class='line'>  <span class="c1"># User model, you need to include them here.</span>
+</span><span class='line'>  <span class="n">form</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">f</span><span class="o">.</span><span class="n">inputs</span> <span class="s2">&quot;User Details&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">input</span> <span class="ss">:username</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">input</span> <span class="ss">:password</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">input</span> <span class="ss">:password_confirmation</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">f</span><span class="o">.</span><span class="n">actions</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># This is related to Rails 4 and how it handles strong parameters.</span>
+</span><span class='line'>  <span class="c1"># Here we replace :email with :username.</span>
+</span><span class='line'>  <span class="n">controller</span> <span class="k">do</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">permitted_params</span>
+</span><span class='line'>      <span class="n">params</span><span class="o">.</span><span class="n">permit</span> <span class="n">admin_user</span><span class="p">:</span> <span class="o">[</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h4>Devise views</h4>
+
+<p>The Devise views need to be modified in order to reflect that the user is using their username and not their email. First, generate them:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>rails g devise:views
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Since I have not included the <code>:confirmable</code>, <code>:registerable</code>, and <code>:recoverable</code> modules, the only relevent view is <code>app/views/devise/sessions/new.html.erb</code>. You only need to change these lines:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erb'><span class='line'><span class="x">&lt;div&gt;</span><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:username</span> <span class="cp">%&gt;</span><span class="x">&lt;br /&gt;</span>
+</span><span class='line'><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:username</span><span class="p">,</span> <span class="ss">:autofocus</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span><span class="x">&lt;/div&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>Note that <code>f.email_field</code> needs to be changed to <code>f.text_field</code>, otherwise in newer browsers the built-in validation won&#39;t pass and you&#39;ll get error when you enter a username in that field.</p>
+
+<p>To test your work:</p>
+
+<ul>
+<li>create a new user via the admin back-end;</li>
+<li>go to <a href="http://localhost:3000/users/sign_in"><code>http://localhost:3000/users/sign_in</code></a> and log in.</li>
+</ul>
+
+<p>Bear in mind that if you have not created a default home page containing a sign out link, you won&#39;t be able to log out by just entering <a href="http://localhost:3000/users/sign_out"><code>http://localhost:3000/users/sign_out</code></a> by default, as the sign<em>out route uses the <code>:delete</code> HTTP method. As a temporary workaround, in the Devise initializer set `config.sign</em>out<em>via<code>to</code>:get<code>and in</code>routes.rb<code>change</code>devise</em>for :users` to</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">devise_for</span> <span class="ss">:users</span> <span class="k">do</span> <span class="n">get</span> <span class="s1">&#39;/users/sign_out&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;devise/sessions#destroy&#39;</span> <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>I hope I have saved you sometime.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Install Postgresql 9.2.4 on OS X Mountain Lion]]></title>
@@ -24,8 +306,7 @@
 
 <div style="clear:both;"></div>
 
-
-<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
+<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with <code>psql</code> in the shell, you&#39;ll get an error message, similar to:</p>
 
 <figure class='code'><figcaption><span>[PSQL starting error] </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -34,7 +315,6 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>psql: could not connect to server: Permission denied
 </span><span class='line'>    Is the server running locally and accepting
 </span><span class='line'>    connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?</span></code></pre></td></tr></table></div></figure>
-
 
 <p>The links I mentioned above provide a possible solution to this problem. You could also try the varios suggestions in <a href="http://stackoverflow.com/search?q=.s.PGSQL.5432">Stackoverflow</a>. Alas, I had no luck with any of them, but this is what saved my day:</p>
 
@@ -45,11 +325,10 @@
 <li><a href="http://postgresapp.com/download">Download the latest version</a>.</li>
 <li>Unarchive it.</li>
 <li>Drag-and-drop Postgres.app to your Applications folder</li>
-</ul>
-</li>
-<li><p>Amend your PATH by running this in the shell:</p>
+</ul></li>
+<li><p>Amend your PATH by running this in the shell: </p>
 
-<p> <code>export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"</code></p></li>
+<p><code>export PATH=&quot;/Applications/Postgres.app/Contents/MacOS/bin:$PATH&quot;</code></p></li>
 <li><p>Start the Postgres.app from your Applications folder. You should be seeing a black elephant in the menu bar.</p></li>
 <li><p>Create a role with the same name as the one you have specified in your <code>database.yml</code> file with these commands</p>
 
@@ -57,18 +336,15 @@
 <li><code>psql</code> to startthe psql.</li>
 <li>Create the role with <code>CREATE ROLE &lt;username&gt; SUPERUSER LOGIN;</code>.</li>
 <li><code>\q</code> to quit the psql shell.</li>
-</ul>
-</li>
+</ul></li>
 <li><p>After that run these commands to recreate the development and environment databases of your app:</p>
 
 <ul>
 <li><code>rake:db:create:all</code></li>
 <li><code>rake:db:migrate</code></li>
 <li><code>rake:db:migrate RAILS_ENV=test</code></li>
-</ul>
-</li>
+</ul></li>
 </ol>
-
 
 <p>You should be good to go.</p>
 
@@ -88,10 +364,9 @@
 <p>This is it. I made it. I installed <a href="http://octopress.org/">Octopress</a>, deployed my blog on <a href="http://pages.github.com/">GitHub Pages</a> and am writing my first blog post. I decided to create this blog for two reasons: <!-- more --></p>
 
 <ol>
-<li>I spend a lot of time solving problems in the course of my learning, my work, my life in general. This costs me time. I want to share my knowledge and save other people&rsquo;s time. Octopress happens to be a beautiful and very flexible way to do this.</li>
+<li>I spend a lot of time solving problems in the course of my learning, my work, my life in general. This costs me time. I want to share my knowledge and save other people&#39;s time. Octopress happens to be a beautiful and very flexible way to do this.</li>
 <li>Blogging on Octopress involves many technologies, such as <a href="https://www.ruby-lang.org/en/">Ruby</a>, <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://octopress.org/">Octopress</a> (obviously), <a href="http://daringfireball.net/projects/markdown/">Markdown</a> and many more. I like using beautiful, simple and yet powerfull technologies and I like learning.</li>
 </ol>
-
 
 <p>So there you have it. I promise to try and blog at least once a week and hope my posts will help you do the things you like faster and easier.</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: PSQL | Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/blog/categories/psql/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-09-12T18:23:41+03:00</updated>
+  <updated>2013-10-31T17:25:54+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -24,24 +24,17 @@
 
 <div style="clear:both;"></div>
 
-
-<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
+<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with <code>psql</code> in the shell, you&#39;ll get an error message, similar to:</p>
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>[PSQL starting error] </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>psql: could not connect to server: Permission denied&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>Is the server running locally and accepting
-</span><span class='line'>connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;br>
+</span><span class='line'>psql: could not connect to server: Permission denied&lt;br>
+</span><span class='line'>    Is the server running locally and accepting&lt;br>
+</span><span class='line'>    connections on Unix domain socket &quot;/var/pgsql_socket/.s.PGSQL.5432&quot;?&lt;br></span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>The links I mentioned above provide a possible solution to this problem. You could also try the varios suggestions in <a href="http://stackoverflow.com/search?q=.s.PGSQL.5432">Stackoverflow</a>. Alas, I had no luck with any of them, but this is what saved my day:</p>
 
@@ -52,11 +45,10 @@
 <li><a href="http://postgresapp.com/download">Download the latest version</a>.</li>
 <li>Unarchive it.</li>
 <li>Drag-and-drop Postgres.app to your Applications folder</li>
-</ul>
-</li>
-<li><p>Amend your PATH by running this in the shell:</p>
+</ul></li>
+<li><p>Amend your PATH by running this in the shell: </p>
 
-<p> <code>export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"</code></p></li>
+<p><code>export PATH=&quot;/Applications/Postgres.app/Contents/MacOS/bin:$PATH&quot;</code></p></li>
 <li><p>Start the Postgres.app from your Applications folder. You should be seeing a black elephant in the menu bar.</p></li>
 <li><p>Create a role with the same name as the one you have specified in your <code>database.yml</code> file with these commands</p>
 
@@ -64,18 +56,15 @@
 <li><code>psql</code> to startthe psql.</li>
 <li>Create the role with <code>CREATE ROLE &lt;username&gt; SUPERUSER LOGIN;</code>.</li>
 <li><code>\q</code> to quit the psql shell.</li>
-</ul>
-</li>
+</ul></li>
 <li><p>After that run these commands to recreate the development and environment databases of your app:</p>
 
 <ul>
 <li><code>rake:db:create:all</code></li>
 <li><code>rake:db:migrate</code></li>
 <li><code>rake:db:migrate RAILS_ENV=test</code></li>
-</ul>
-</li>
+</ul></li>
 </ol>
-
 
 <p>You should be good to go.</p>
 

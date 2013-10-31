@@ -11,16 +11,22 @@
         <lastmod>2013-09-05T14:48:41+03:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/
+        </loc>
+        <lastmod>2013-10-31T17:24:39+02:00</lastmod>
+    </url>
+    <url>
         <loc>http://AlexVPopov.github.io/about/</loc>
         <lastmod>2013-09-01T15:33:38+03:00</lastmod>
     </url>
     <url>
         <loc>http://AlexVPopov.github.io/blog/archives/</loc>
-        <lastmod>2013-09-05T14:48:41+03:00</lastmod>
+        <lastmod>2013-10-31T17:24:39+02:00</lastmod>
     </url>
     <url>
         <loc>http://AlexVPopov.github.io/</loc>
-        <lastmod>2013-09-05T14:48:41+03:00</lastmod>
+        <lastmod>2013-10-31T17:24:39+02:00</lastmod>
     </url>
     <url>
         <loc>http://AlexVPopov.github.io/robots.txt</loc>

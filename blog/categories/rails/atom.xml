@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Rails, | Alex Popov]]></title>
+  <title><![CDATA[Category: Rails | Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-09-12T18:23:41+03:00</updated>
+  <updated>2013-10-31T17:25:54+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -14,72 +14,230 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Install Postgresql 9.2.4 on OS X Mountain Lion]]></title>
-    <link href="http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/"/>
-    <updated>2013-09-02T13:54:00+03:00</updated>
-    <id>http://AlexVPopov.github.io/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion</id>
-    <content type="html"><![CDATA[<h1>A quick way to get Postgres to work with your existing Rails app</h1>
+    <title type="html"><![CDATA[Allow users to authenticate with username only using Devise, ActiveAdmin, Rails 4 and Ruby 2]]></title>
+    <link href="http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/"/>
+    <updated>2013-10-31T16:10:00+02:00</updated>
+    <id>http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2</id>
+    <content type="html"><![CDATA[<p><em>This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.</em></p>
 
-<p><img class="left" src="/images/postgres_app.png" width="300" title="Postgress.app" ></p>
+<h2>Allow normal users to authenticate with username only, while keeping email authentication for admins in ActiveAdmin</h2>
 
-<div style="clear:both;"></div>
+<h3>Scenario</h3>
 
+<p>You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all.</p>
 
-<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.<!-- more --> As a result, when you try to start Postgres with <code>psql</code> in the shell, you&rsquo;ll get an error message, similar to:</p>
+<h3>Conventions</h3>
 
-<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>[PSQL starting error] </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>psql: could not connect to server: Permission denied&lt;/p>
-</span><span class='line'>
-</span><span class='line'>&lt;pre>&lt;code>Is the server running locally and accepting
-</span><span class='line'>connections on Unix domain socket "/var/pgsql_socket/.s.PGSQL.5432"?
-</span><span class='line'>&lt;/code>&lt;/pre>
-</span><span class='line'>
-</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+<p>I refer to the files unser <code>app/models/</code> as <em>models</em> and the files under <code>app/admin/</code> as <em>resources</em>.</p>
 
-<p>The links I mentioned above provide a possible solution to this problem. You could also try the varios suggestions in <a href="http://stackoverflow.com/search?q=.s.PGSQL.5432">Stackoverflow</a>. Alas, I had no luck with any of them, but this is what saved my day:</p>
-
-<ol>
-<li>Install the <a href="http://postgresapp.com/">Postgress App</a>:
+<h3>Prerequisits:</h3>
 
 <ul>
-<li><a href="http://postgresapp.com/download">Download the latest version</a>.</li>
-<li>Unarchive it.</li>
-<li>Drag-and-drop Postgres.app to your Applications folder</li>
+<li>Generate a new Rails application:</li>
 </ul>
-</li>
-<li><p>Amend your PATH by running this in the shell:</p>
 
-<p> <code>export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"</code></p></li>
-<li><p>Start the Postgres.app from your Applications folder. You should be seeing a black elephant in the menu bar.</p></li>
-<li><p>Create a role with the same name as the one you have specified in your <code>database.yml</code> file with these commands</p>
+<p><code>bash<br>
+rails new devise_username_only<br>
+</code></p>
 
 <ul>
-<li><code>psql</code> to startthe psql.</li>
-<li>Create the role with <code>CREATE ROLE &lt;username&gt; SUPERUSER LOGIN;</code>.</li>
-<li><code>\q</code> to quit the psql shell.</li>
+<li>Add to Gemfile</li>
 </ul>
-</li>
-<li><p>After that run these commands to recreate the development and environment databases of your app:</p>
+
+<p><code>ruby<br>
+gem &#39;activeadmin&#39;, github: &#39;gregbell/active_admin&#39;<br>
+</code></p>
 
 <ul>
-<li><code>rake:db:create:all</code></li>
-<li><code>rake:db:migrate</code></li>
-<li><code>rake:db:migrate RAILS_ENV=test</code></li>
+<li>Install gems:</li>
 </ul>
-</li>
-</ol>
 
+<p><code>bash<br>
+bundle install<br>
+</code></p>
 
-<p>You should be good to go.</p>
+<ul>
+<li>Install ActiveAdmin:</li>
+</ul>
 
-<p>P.S. Also check out this <a href="http://railscasts.com/episodes/342-migrating-to-postgresql?view=asciicast">#342 Migrating to PostgreSQL</a> Railscast for a full guide on migrating from SQLite to Postgres and this <a href="http://stackoverflow.com/questions/11092807/installing-postgresql-on-ubuntu-for-ruby-on-rails">Stackoverflow question</a> for similar instructions for Ubuntu.</p>
+<p><code>bash<br>
+rails g active_admin:install<br>
+</code></p>
+
+<ul>
+<li>Migrate the database:</li>
+</ul>
+
+<p><code>bash<br>
+rake db:migrate<br>
+</code></p>
+
+<p>So far you should have a working app with an admin backend, containing an AdminUsers resource. Test it by starting the server with <code>rails s</code>, going to <a href="http://localhost:3000/admin"><code>http://localhost:3000/admin</code></a> and logging in with credentials <code>admin@example.com</code> and <code>password</code>.</p>
+
+<h3>Actual work</h3>
+
+<p>Now comes the real work of generating your user model and doing a few tweaks.</p>
+
+<h4>Devise inilizier</h4>
+
+<p>Modify the Devise initializer under <code>config/initalizers/devire.rb</code>. In particular change the following lines to look like this:</p>
+
+<p><code>ruby<br>
+config.case_insensitive_keys = [ :email, :username ]<br>
+config.strip_whitespace_keys = [ :email, :username ]<br>
+</code></p>
+
+<p>We we will leave the line:</p>
+
+<p>```ruby</p>
+
+<h1>config.authentication_keys = [ :email ]</h1>
+
+<p>```</p>
+
+<p>commented out, as we don&#39;t want to change the authentication keys globally. We want our admin users to still be able to log in with email. We will change the authentication keys only within the user model.</p>
+
+<p>Also, uncomment <code>config.scoped_views</code> and set it to <code>true</code>:</p>
+
+<p><code>ruby<br>
+config.scoped_views = true<br>
+</code><br>
+We need this because we have more than one Devise model (AdminUsers and Users) and we want to modify the Users views. More info <a href="https://github.com/plataformatec/devise#configuring-views">here</a>.</p>
+
+<h4>User model</h4>
+
+<p>Generate the User model:</p>
+
+<p><code>bash<br>
+rails g devise User<br>
+</code></p>
+
+<p>In the user migration file under <code>db/migrate/20131031100550_devise_create_admin_users.rb</code> replace <code>:email</code> with <code>:username</code> so that you have the folloing two lines in the file:</p>
+
+<p><code>ruby<br>
+t.string :username, null =&gt; false, :default =&gt; &quot;&quot;<br>
+add_index :users, :username, :unique =&gt; true<br>
+</code></p>
+
+<p>Tweak the User <em>model</em>:</p>
+
+<ul>
+<li>set the desired Devise modules;</li>
+<li>add the authentication keys option;</li>
+<li>overwrite <code>email_required?</code> and <code>email_changed?</code>.</li>
+</ul>
+
+<p>Your model should look something like this:</p>
+
+<p>```ruby<br>
+class User &lt; ActiveRecord::Base<br>
+  # Include default devise modules. Others available are:<br>
+  # :confirmable, :lockable, :timeoutable, :omniauthable,<br>
+  # :registerable, :recoverable<br>
+  devise :database<em>authenticatable,<br>
+         :rememberable,<br>
+         :trackable,<br>
+         :validatable,<br>
+         :authentication</em>keys =&gt; [:username]</p>
+
+<p>def email_required?<br>
+    false<br>
+  end</p>
+
+<p>def email_changed?<br>
+    false<br>
+  end<br>
+end<br>
+```</p>
+
+<p>I have not included <code>:confirmable</code>, <code>:registerable</code>, and <code>:recoverable</code> as I want all my user management to happen on the backend through ActiveAdmin. What&#39;s more, as the User model does not have the email attribute, these modules won&#39;t work anyway.</p>
+
+<p>Finally, run the migration:</p>
+
+<p><code>bash<br>
+rake db:migrate<br>
+</code></p>
+
+<h4>User resource</h4>
+
+<p>Register the User model as a resource in ActiveAdmin:</p>
+
+<p><code>bash<br>
+rails g active_admin:resource User<br>
+</code></p>
+
+<p>Modify the User <em>resource</em> to look like this:</p>
+
+<p>```ruby<br>
+ActiveAdmin.register User do<br>
+  # This determines which attributes of the User model will be<br>
+  # displayed in the index page. I have left only username, but<br>
+  # feel free to uncomment the rest of the fields or add any<br>
+  # other of the User attributes.<br>
+  index do<br>
+    column :username<br>
+    # column :current<em>sign</em>in<em>at<br>
+    # column :last</em>sign<em>in</em>at<br>
+    # column :sign<em>in</em>count<br>
+    default_actions<br>
+  end</p>
+
+<p># Default is :email, but we need to replace this with :username<br>
+  filter :username</p>
+
+<p># This is the form for creating a new user using the Admin<br>
+  # backend. If you have added additional attributes to the<br>
+  # User model, you need to include them here.<br>
+  form do |f|<br>
+    f.inputs &quot;User Details&quot; do<br>
+      f.input :username<br>
+      f.input :password<br>
+      f.input :password_confirmation<br>
+    end<br>
+    f.actions<br>
+  end</p>
+
+<p># This is related to Rails 4 and how it handles strong parameters.<br>
+  # Here we replace :email with :username.<br>
+  controller do<br>
+    def permitted<em>params<br>
+      params.permit admin</em>user: [:username, :password, :password_confirmation]<br>
+    end<br>
+  end<br>
+end<br>
+```</p>
+
+<h4>Devise views</h4>
+
+<p>The Devise views need to be modified in order to reflect that the user is using their username and not their email. First, generate them:</p>
+
+<p><code>bash<br>
+rails g devise:views<br>
+</code></p>
+
+<p>Since I have not included the <code>:confirmable</code>, <code>:registerable</code>, and <code>:recoverable</code> modules, the only relevent view is <code>app/views/devise/sessions/new.html.erb</code>. You only need to change these lines:</p>
+
+<p><code>erb<br>
+&lt;div&gt;&lt;%= f.label :username %&gt;&lt;br /&gt;<br>
+&lt;%= f.text_field :username, :autofocus =&gt; true %&gt;&lt;/div&gt;<br>
+</code></p>
+
+<p>Note that <code>f.email_field</code> needs to be changed to <code>f.text_field</code>, otherwise in newer browsers the built-in validation won&#39;t pass and you&#39;ll get error when you enter a username in that field.</p>
+
+<p>To test your work:</p>
+
+<ul>
+<li>create a new user via the admin back-end;</li>
+<li>go to <a href="http://localhost:3000/users/sign_in"><code>http://localhost:3000/users/sign_in</code></a> and log in.</li>
+</ul>
+
+<p>Bear in mind that if you have not created a default home page containing a sign out link, you won&#39;t be able to log out by just entering <a href="http://localhost:3000/users/sign_out"><code>http://localhost:3000/users/sign_out</code></a> by default, as the sign<em>out route uses the <code>:delete</code> HTTP method. As a temporary workaround, in the Devise initializer set `config.sign</em>out<em>via<code>to</code>:get<code>and in</code>routes.rb<code>change</code>devise</em>for :users` to</p>
+
+<p><code>ruby<br>
+devise_for :users do get &#39;/users/sign_out&#39; =&gt; &#39;devise/sessions#destroy&#39; end<br>
+</code></p>
+
+<p>I hope I have saved you sometime.</p>
 ]]></content>
   </entry>
   

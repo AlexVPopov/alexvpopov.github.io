@@ -5,15 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Alex Popov</title>
+  <title>Allow users to authenticate with username only using Devise, ActiveAdmin, Rails 4 and Ruby 2 - Alex Popov</title>
   <meta name="author" content="Alex Popov">
 
   
-  <meta name="description" content="This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new &hellip;">
+  <meta name="description" content="A short tutorial on how to setup Rails, ActiveAdmin and Devise to allow user authentication with username only.">
 
   
-  <meta name="keywords" content="Alex, Popov, personal, blog, Ruby, Rails, Octopress" />
-  
+  <meta name="keywords" content="Rails, ActiveAdmin, Devise, Authentication, Tutorial, How-to" />
+  <meta name="keywords" content="Rails, ActiveAdmin, Devise, Authentication, Tutorial, How-to">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://AlexVPopov.github.io/">
+  <link rel="canonical" href="http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -88,15 +88,12 @@
   <div id="body"  >
     <div id="main">
       <div id="content">
-        <div class="blog-index">
+        <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/">Allow Users to Authenticate With Username Only Using Devise, ActiveAdmin, Rails 4 and Ruby 2</a></h1>
+      <h1 class="entry-title">Allow Users to Authenticate With Username Only Using Devise, ActiveAdmin, Rails 4 and Ruby 2</h1>
     
     
       <p class="meta">
@@ -114,14 +111,14 @@
 
 <time datetime="2013-10-31T16:10:00+02:00" pubdate data-updated="true">Oct 31<span>st</span>, 2013</time>
         
-         | <a href="/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/#disqus_thread">Comments</a>
+         | <a href="#disqus_thread">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p><em>This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.</em></p>
+<div class="entry-content"><p><em>This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.</em></p>
 
 <h2>Allow normal users to authenticate with username only, while keeping email authentication for admins in ActiveAdmin</h2>
 
@@ -396,69 +393,16 @@
 
 <p>I hope I have saved you sometime.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/">Install Postgresql 9.2.4 on OS X Mountain Lion</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Alex Popov</span></span>
 
-<time datetime="2013-09-02T13:54:00+03:00" pubdate data-updated="true">Sep 2<span>nd</span>, 2013</time>
-        
-         | <a href="/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>A quick way to get Postgres to work with your existing Rails app</h1>
-
-<p><img class="left" src="/images/postgres_app.png" width="300" title="Postgress.app" ></p>
-
-<div style="clear:both;"></div>
-
-<p>There are plenty of instructions for installing PSQL on OS X Mountain Lion such as <a href="https://coderwall.com/p/1mni7w">this</a> or <a href="http://metacog.elijames.org/post/28333408639/setting-up-a-development-environment-on-mountain-lion">this</a>. The problem here is that as of Mountain Lion Postgres opens a socket in <code>/var/pgsql_socket</code>, which is different from previous versions.</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/08/31/hello-world/">Hello World</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -470,36 +414,48 @@
   
 
 
-<time datetime="2013-08-31T00:01:00+03:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/08/31/hello-world/#disqus_thread">Comments</a>
-        
-      </p>
+<time datetime="2013-10-31T16:10:00+02:00" pubdate data-updated="true">Oct 31<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/rails/'>Rails</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><h2>A post to get my blog going</h2>
-
-<p><img class="center" src="/images/github_page_and_octopress.png" width="600" title="Octocat and Octopress" alt="Octocat and Octopress"></p>
-
-<p>This is it. I made it. I installed <a href="http://octopress.org/">Octopress</a>, deployed my blog on <a href="http://pages.github.com/">GitHub Pages</a> and am writing my first blog post. I decided to create this blog for two reasons: </div>
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/" data-via="sashopopov" data-counturl="http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/" >Tweet</a>
   
   
-    <footer>
-      <a rel="full-article" href="/blog/2013/08/31/hello-world/">Read on &rarr;</a>
-    </footer>
+  <div class="g-plusone" data-size="medium"></div>
   
-
-
-    </article>
   
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/09/02/install-postgresql-9-dot-2-4-on-os-x-mountain-lion/" title="Previous Post: Install Postgresql 9.2.4 on OS X Mountain Lion">&laquo; Install Postgresql 9.2.4 on OS X Mountain Lion</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -524,7 +480,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/AlexVPopov">@AlexVPopov</a> on GitHub
@@ -557,6 +513,7 @@
   
 </aside>
 
+
       </div>
     </div>
     <footer role="contentinfo"><p>
@@ -571,7 +528,10 @@
       var disqus_shortname = 'alexoctopress';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/';
+        var disqus_url = 'http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
