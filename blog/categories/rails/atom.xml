@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-10-31T17:25:54+02:00</updated>
+  <updated>2013-11-01T10:45:43+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -25,6 +25,10 @@
 <h3>Scenario</h3>
 
 <p>You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all.</p>
+
+<h3>Source</h3>
+
+<p>You can view <a href="https://github.com/AlexVPopov/devise-username-only">the source on Github</a>.</p>
 
 <h3>Conventions</h3>
 
