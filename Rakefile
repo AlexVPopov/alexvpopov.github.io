@@ -117,6 +117,20 @@ task :new_post, :title do |t, args|
   end
 end
 
+# usage rake edit_post # opens the latest post or rake edit_post[happy] # opens the latest post with "happy" in the title
+desc "Edit a post (defaults to most recent)"
+task :edit_post, :title do |t, args|
+  args.with_defaults(:title => false)
+  posts = Dir.glob("#{source_dir}/#{posts_dir}/*.*")
+  post = (args.title) ? post = posts.keep_if {|post| post =~ /#{args.title}/}.last : posts.last
+  if post
+    puts "Opening #{post} with #{subl}..."
+    system "#{ENV['EDITOR']} #{post} &"
+  else
+    puts "No posts were found with \"#{args.title}\" in the title."
+  end
+end
+
 # usage rake new_page[my-new-page] or rake new_page[my-new-page.html] or rake new_page (defaults to "new-page.markdown")
 desc "Create a new page in #{source_dir}/(filename)/index.#{new_page_ext}"
 task :new_page, :filename do |t, args|

@@ -15,6 +15,10 @@ description: A short tutorial on how to setup Rails, ActiveAdmin and Devise to a
 
 You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all.
 
+### Source
+
+You can view [the source on Github](https://github.com/AlexVPopov/devise-username-only).
+
 ### Conventions
 
 I refer to the files unser `app/models/` as *models* and the files under `app/admin/` as *resources*.
