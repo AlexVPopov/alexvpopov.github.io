@@ -4,7 +4,7 @@
   <title><![CDATA[Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-11-01T10:46:18+02:00</updated>
+  <updated>2013-11-01T15:02:31+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -295,7 +295,7 @@
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">devise_for</span> <span class="ss">:users</span> <span class="k">do</span> <span class="n">get</span> <span class="s1">&#39;/users/sign_out&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;devise/sessions#destroy&#39;</span> <span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
-<p>I hope I have saved you sometime.</p>
+<p>I hope I have saved you some time.</p>
 ]]></content>
   </entry>
   
