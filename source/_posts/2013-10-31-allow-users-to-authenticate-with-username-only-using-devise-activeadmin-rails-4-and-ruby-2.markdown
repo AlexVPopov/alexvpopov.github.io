@@ -214,4 +214,4 @@ Bear in mind that if you have not created a default home page containing a sign 
 devise_for :users do get '/users/sign_out' => 'devise/sessions#destroy' end
 ```
 
-I hope I have saved you sometime.
+I hope I have saved you some time.
