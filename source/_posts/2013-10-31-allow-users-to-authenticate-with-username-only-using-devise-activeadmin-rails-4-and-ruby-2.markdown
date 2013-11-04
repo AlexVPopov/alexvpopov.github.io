@@ -180,7 +180,7 @@ ActiveAdmin.register User do
   # Here we replace :email with :username.
   controller do
     def permitted_params
-      params.permit admin_user: [:username, :password, :password_confirmation]
+      params.permit user: [:username, :password, :password_confirmation]
     end
   end
 end
