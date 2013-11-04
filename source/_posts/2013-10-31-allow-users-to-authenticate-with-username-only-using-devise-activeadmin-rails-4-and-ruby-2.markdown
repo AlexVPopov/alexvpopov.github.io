@@ -7,7 +7,7 @@ categories: Rails
 keywords: Rails, ActiveAdmin, Devise, Authentication, Tutorial, How-to
 description: A short tutorial on how to setup Rails, ActiveAdmin and Devise to allow user authentication with username only.
 ---
-*This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.*
+*This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.*<!-- more -->
 
 ## Allow normal users to authenticate with username only, while keeping email authentication for admins in ActiveAdmin
 
