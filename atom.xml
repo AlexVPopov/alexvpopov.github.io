@@ -4,7 +4,7 @@
   <title><![CDATA[Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-11-04T13:28:10+02:00</updated>
+  <updated>2013-11-04T17:04:08+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -18,7 +18,7 @@
     <link href="http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/"/>
     <updated>2013-10-31T16:10:00+02:00</updated>
     <id>http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2</id>
-    <content type="html"><![CDATA[<p><em>This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.</em></p>
+    <content type="html"><![CDATA[<p><em>This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.</em><!-- more --></p>
 
 <h2>Allow normal users to authenticate with username only, while keeping email authentication for admins in ActiveAdmin</h2>
 
