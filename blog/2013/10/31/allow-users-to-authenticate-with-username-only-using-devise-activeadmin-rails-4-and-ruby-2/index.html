@@ -358,7 +358,7 @@
 </span><span class='line'>  <span class="c1"># Here we replace :email with :username.</span>
 </span><span class='line'>  <span class="n">controller</span> <span class="k">do</span>
 </span><span class='line'>    <span class="k">def</span> <span class="nf">permitted_params</span>
-</span><span class='line'>      <span class="n">params</span><span class="o">.</span><span class="n">permit</span> <span class="n">admin_user</span><span class="p">:</span> <span class="o">[</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="o">]</span>
+</span><span class='line'>      <span class="n">params</span><span class="o">.</span><span class="n">permit</span> <span class="ss">user</span><span class="p">:</span> <span class="o">[</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="o">]</span>
 </span><span class='line'>    <span class="k">end</span>
 </span><span class='line'>  <span class="k">end</span>
 </span><span class='line'><span class="k">end</span>

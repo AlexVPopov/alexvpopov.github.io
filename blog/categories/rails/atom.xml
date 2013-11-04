@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-11-01T15:02:31+02:00</updated>
+  <updated>2013-11-04T13:28:10+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -205,7 +205,7 @@ ActiveAdmin.register User do<br>
   # Here we replace :email with :username.<br>
   controller do<br>
     def permitted<em>params<br>
-      params.permit admin</em>user: [:username, :password, :password_confirmation]<br>
+      params.permit user: [:username, :password, :password</em>confirmation]<br>
     end<br>
   end<br>
 end<br>
