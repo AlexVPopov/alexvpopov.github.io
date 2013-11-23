@@ -61,9 +61,9 @@ So far you should have a working app with an admin backend, containing an AdminU
 
 Now comes the real work of generating your user model and doing a few tweaks.
 
-#### Devise inilizier
+#### Devise initializer
 
-Modify the Devise initializer under `config/initalizers/devire.rb`. In particular change the following lines to look like this:
+Modify the Devise initializer under `config/initalizers/devire.rb`. In particular, change the following lines to look like this:
 
 ```ruby
 config.case_insensitive_keys = [ :email, :username ]
@@ -208,7 +208,7 @@ To test your work:
 * create a new user via the admin back-end;
 * go to [`http://localhost:3000/users/sign_in`](http://localhost:3000/users/sign_in) and log in.
 
-Bear in mind that if you have not created a default home page containing a sign out link, you won't be able to log out by just entering [`http://localhost:3000/users/sign_out`](http://localhost:3000/users/sign_out) by default, as the sign_out route uses the `:delete` HTTP method. As a temporary workaround, in the Devise initializer set `config.sign_out_via` to `:get` and in `routes.rb` change `devise_for :users` to
+Bear in mind that if you have not created a default home page containing a sign out link, you won't be able to log out by just entering [`http://localhost:3000/users/sign_out`](http://localhost:3000/users/sign_out) by default, as the sign-out route uses the `:delete` HTTP method. As a temporary workaround, in the Devise initializer set `config.sign_out_via` to `:get` and in `routes.rb` change `devise_for :users` to
 
 ```ruby
 devise_for :users do get '/users/sign_out' => 'devise/sessions#destroy' end
