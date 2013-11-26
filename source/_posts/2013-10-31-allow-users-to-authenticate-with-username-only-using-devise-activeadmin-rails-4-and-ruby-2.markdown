@@ -7,13 +7,13 @@ categories: Rails
 keywords: Rails, ActiveAdmin, Devise, Authentication, Tutorial, How-to
 description: A short tutorial on how to setup Rails, ActiveAdmin and Devise to allow user authentication with username only.
 ---
-*This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.*<!-- more -->
+Probably there are not many cases where one wouldn't wont their users to have email addresses. Nevertheless, I had exactly this situation recently. It was quite a challenge (for me at least) to figure out all the things one needs to change in Devise, so as not to expect users to provide an email upon registration and sign-in and to work properly. Finally, I was able to set it to work properly and decided to save you the trouble, in case some of you have a similar setup. <!-- more -->
 
 ## Allow normal users to authenticate with username only, while keeping email authentication for admins in ActiveAdmin
 
 ### Scenario
 
-You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all.
+You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all. At the same time you want your admins to be able to log-in in the AA backend via email.
 
 ### Source
 
@@ -61,9 +61,9 @@ So far you should have a working app with an admin backend, containing an AdminU
 
 Now comes the real work of generating your user model and doing a few tweaks.
 
-#### Devise inilizier
+#### Devise initializer
 
-Modify the Devise initializer under `config/initalizers/devire.rb`. In particular change the following lines to look like this:
+Modify the Devise initializer under `config/initalizers/devire.rb`. In particular, change the following lines to look like this:
 
 ```ruby
 config.case_insensitive_keys = [ :email, :username ]
@@ -208,7 +208,7 @@ To test your work:
 * create a new user via the admin back-end;
 * go to [`http://localhost:3000/users/sign_in`](http://localhost:3000/users/sign_in) and log in.
 
-Bear in mind that if you have not created a default home page containing a sign out link, you won't be able to log out by just entering [`http://localhost:3000/users/sign_out`](http://localhost:3000/users/sign_out) by default, as the sign_out route uses the `:delete` HTTP method. As a temporary workaround, in the Devise initializer set `config.sign_out_via` to `:get` and in `routes.rb` change `devise_for :users` to
+Bear in mind that if you have not created a default home page containing a sign out link, you won't be able to log out by just entering [`http://localhost:3000/users/sign_out`](http://localhost:3000/users/sign_out) by default, as the sign-out route uses the `:delete` HTTP method. As a temporary workaround, in the Devise initializer set `config.sign_out_via` to `:get` and in `routes.rb` change `devise_for :users` to
 
 ```ruby
 devise_for :users do get '/users/sign_out' => 'devise/sessions#destroy' end
