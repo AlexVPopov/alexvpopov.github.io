@@ -4,7 +4,7 @@
   <title><![CDATA[Alex Popov]]></title>
   <link href="http://AlexVPopov.github.io/atom.xml" rel="self"/>
   <link href="http://AlexVPopov.github.io/"/>
-  <updated>2013-11-20T18:24:04+02:00</updated>
+  <updated>2013-11-26T09:41:42+02:00</updated>
   <id>http://AlexVPopov.github.io/</id>
   <author>
     <name><![CDATA[Alex Popov]]></name>
@@ -18,13 +18,13 @@
     <link href="http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2/"/>
     <updated>2013-10-31T16:10:00+02:00</updated>
     <id>http://AlexVPopov.github.io/blog/2013/10/31/allow-users-to-authenticate-with-username-only-using-devise-activeadmin-rails-4-and-ruby-2</id>
-    <content type="html"><![CDATA[<p><em>This post is a work-in-progress. I have published it as a reference to people willing to help me debug the problem of not being able to create a new user using the ActiveAdmin back-end, but only via the Rails console.</em><!-- more --></p>
+    <content type="html"><![CDATA[<p>Probably there are not many cases where one wouldn&#39;t wont their users to have email addresses. Nevertheless, I had exactly this situation recently. It was quite a challenge (for me at least) to figure out all the things one needs to change in Devise, so as not to expect users to provide an email upon registration and sign-in and to work properly. Finally, I was able to set it to work properly and decided to save you the trouble, in case some of you have a similar setup. <!-- more --></p>
 
 <h2>Allow normal users to authenticate with username only, while keeping email authentication for admins in ActiveAdmin</h2>
 
 <h3>Scenario</h3>
 
-<p>You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all.</p>
+<p>You are using ActiveAdmin (AA), Devise, Rails 4 and Ruby 2. You have two models/AA resources - AdminUsers (created by default after installing AA) and Users (generated using Devise). You want your users to be able to login only with username and not have the email attribute at all. At the same time you want your admins to be able to log-in in the AA backend via email.</p>
 
 <h3>Source</h3>
 
@@ -82,9 +82,9 @@
 
 <p>Now comes the real work of generating your user model and doing a few tweaks.</p>
 
-<h4>Devise inilizier</h4>
+<h4>Devise initializer</h4>
 
-<p>Modify the Devise initializer under <code>config/initalizers/devire.rb</code>. In particular change the following lines to look like this:</p>
+<p>Modify the Devise initializer under <code>config/initalizers/devire.rb</code>. In particular, change the following lines to look like this:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -289,7 +289,7 @@
 <li>go to <a href="http://localhost:3000/users/sign_in"><code>http://localhost:3000/users/sign_in</code></a> and log in.</li>
 </ul>
 
-<p>Bear in mind that if you have not created a default home page containing a sign out link, you won&#39;t be able to log out by just entering <a href="http://localhost:3000/users/sign_out"><code>http://localhost:3000/users/sign_out</code></a> by default, as the sign<em>out route uses the <code>:delete</code> HTTP method. As a temporary workaround, in the Devise initializer set `config.sign</em>out<em>via<code>to</code>:get<code>and in</code>routes.rb<code>change</code>devise</em>for :users` to</p>
+<p>Bear in mind that if you have not created a default home page containing a sign out link, you won&#39;t be able to log out by just entering <a href="http://localhost:3000/users/sign_out"><code>http://localhost:3000/users/sign_out</code></a> by default, as the sign-out route uses the <code>:delete</code> HTTP method. As a temporary workaround, in the Devise initializer set <code>config.sign_out_via</code> to <code>:get</code> and in <code>routes.rb</code> change <code>devise_for :users</code> to</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">devise_for</span> <span class="ss">:users</span> <span class="k">do</span> <span class="n">get</span> <span class="s1">&#39;/users/sign_out&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;devise/sessions#destroy&#39;</span> <span class="k">end</span>
